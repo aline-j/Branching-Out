@@ -1,4 +1,5 @@
 import json
+import re    # import Regex for email input validation
 
 
 def load_users(filepath="users.json"):
@@ -21,10 +22,7 @@ def filter_users_by_name(users, name):
     users (list): List of user dictionaries.
     name (str): The name to filter users by.
     """
-    filtered_users = [user for user in users if user["name"].lower() == name.lower()]
-
-    for user in filtered_users:
-        print(user)
+    return [user for user in users if user.get("name", "").lower() == name.strip().lower()]
 
 
 def filter_users_by_age(users, age):
@@ -64,8 +62,16 @@ if __name__ == "__main__":
         name_to_search = input("Enter a name to filter users: ").strip()
         if not name_to_search:
             print("Error: Name input cannot be empty.")
+        elif not re.match(r"^[A-Za-zÄÖÜäöüß\s'-]{2,}$", name_to_search):
+            print("Error: Invalid name. Only letters, spaces, hyphens, and apostrophes are allowed.")
         else:
-            filter_users_by_name(users, name_to_search)
+            results = filter_users_by_name(users, name_to_search)
+            if results:
+                for user in results:
+                    print(user)
+            else:
+                print(f"No users found with name: {name_to_search}")
+
 
     elif filter_option == "age":
         try:
@@ -82,8 +88,16 @@ if __name__ == "__main__":
         email_to_search = input("Enter an email to filter users: ").strip()
         if not email_to_search:
             print("Error: Email input cannot be empty.")
+        elif not re.match(r"[^@]+@[^@]+\.[^@]+", email_to_search):
+            print("Error: Invalid email format.")
         else:
-            filter_users_by_email(users, email_to_search)
+            results = filter_users_by_email(users, email_to_search)
+            if results:
+                for user in results:
+                    print(user)
+            else:
+                print(f"No users found with email: {email_to_search}")
+
 
     else:
         print("Sorry, filtering by that option isn't available. Supported options: 'name', 'age'.")
