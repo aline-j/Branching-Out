@@ -34,6 +34,22 @@ def filter_users_by_age(age):
         print(user)
 
 
+def filter_users_by_email(email):
+    """
+    Filter users from a JSON file by their email address (case insensitive).
+
+    Parameters:
+    email (str): The email address to filter users by.
+    """
+    with open("users.json", "r") as file:
+        users = json.load(file)
+
+    filtered_users = [user for user in users if user.get("email", "").lower() == email.lower()]
+
+    for user in filtered_users:
+        print(user)
+
+
 if __name__ == "__main__":
     # Prompt the user for a filtering option
     filter_option = input("What would you like to filter by? ('name' or 'age'): ").strip().lower()
