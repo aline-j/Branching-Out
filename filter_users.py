@@ -62,18 +62,28 @@ if __name__ == "__main__":
 
     if filter_option == "name":
         name_to_search = input("Enter a name to filter users: ").strip()
-        filter_users_by_name(users, name_to_search)
+        if not name_to_search:
+            print("Error: Name input cannot be empty.")
+        else:
+            filter_users_by_name(users, name_to_search)
 
     elif filter_option == "age":
         try:
-            age_to_search = int(input("Enter an age to filter users: ").strip())
-            filter_users_by_age(users, age_to_search)
+            age_input = input("Enter an age to filter users: ").strip()
+            if not age_input:
+                print("Error: Age input cannot be empty.")
+            else:
+                age_to_search = int(age_input)
+                filter_users_by_age(users, age_to_search)
         except ValueError:
             print("Invalid input. Please enter a numeric age.")
 
     elif filter_option == "email":
         email_to_search = input("Enter an email to filter users: ").strip()
-        filter_users_by_email(users, email_to_search)
+        if not email_to_search:
+            print("Error: Email input cannot be empty.")
+        else:
+            filter_users_by_email(users, email_to_search)
 
     else:
         print("Sorry, filtering by that option isn't available. Supported options: 'name', 'age'.")
