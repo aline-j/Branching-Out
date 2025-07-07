@@ -47,10 +47,7 @@ def filter_users_by_email(users, email):
     users (list): List of user dictionaries.
     email (str): The email address to filter users by.
     """
-    filtered_users = [user for user in users if user.get("email", "").lower() == email.lower()]
-
-    for user in filtered_users:
-        print(user)
+    return [user for user in users if user.get("email", "").lower() == email.lower()]
 
 
 if __name__ == "__main__":
@@ -71,7 +68,6 @@ if __name__ == "__main__":
                     print(user)
             else:
                 print(f"No users found with name: {name_to_search}")
-
 
     elif filter_option == "age":
         try:
@@ -97,7 +93,6 @@ if __name__ == "__main__":
                     print(user)
             else:
                 print(f"No users found with email: {email_to_search}")
-
 
     else:
         print("Sorry, filtering by that option isn't available. Supported options: 'name', 'age'.")
