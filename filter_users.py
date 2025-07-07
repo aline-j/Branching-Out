@@ -69,7 +69,6 @@ if __name__ == "__main__":
             else:
                 print(f"No users found with name: {name_to_search}")
 
-
     elif filter_option == "age":
         try:
             age_input = input("Enter an age to filter users: ").strip()
